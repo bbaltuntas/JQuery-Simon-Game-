@@ -46,7 +46,10 @@ function checkAnswer(currentLevel) {
         setTimeout(function () {
             $("body").removeClass("game-over")
         }, 200)
+
         $("#level-title").text("Game Over,Press any Key to Start")
+
+
         startOver()
     }
 
@@ -65,17 +68,23 @@ var buttonColors = ["red", "blue", "green", "yellow"]
 var gameStarted = false;
 var level = 0
 
+
 $(".btn").on("click", function (event) {
         userClickedPattern.push(this.id)
         playSound(this.id)
         animateButton(this.id)
-
         checkAnswer(userClickedPattern.length - 1)
-
 
     }
 )
 $(document).on("keydown", function () {
+    if (gameStarted === false) {
+        nextSequence()
+        $("#level-title").text("Level " + level)
+        gameStarted = true
+    }
+})
+$(".start-btn").on("click", function () {
     if (gameStarted === false) {
         nextSequence()
         $("#level-title").text("Level " + level)
